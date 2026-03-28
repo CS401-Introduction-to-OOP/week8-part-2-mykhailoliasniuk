@@ -5,21 +5,20 @@ class Program
 {
     public static void Main()
     {
-        Point p1 = new Point { X = 1, Y = 2 };
-        Point p2 = p1;
-        p2.X = 6;
-        
-        p1.Print();
-        p2.Print();
-
-
-        PointRef r1 = new PointRef { X = 1, Y = 2 };
-        PointRef r2 = r1;
-        r1.X = 7;
-        r1.Print();
-        r2.Print();
-        
-        BoxingTaster.Test();
+        var container = new DataContainer<DataItem>();
+        for (int i = 0; i < 10000; i++)
+        {
+            var item = new DataItem
+            {
+                Id = $"item-{i}",
+                Pyload = new byte[1024]
+            };
+            container.AddItem(item);
+        }
+        Console.WriteLine($"Total size before GC: {container.GetTotalSize()} bytes");
+        GC.Collect();
+        Console.WriteLine("GC.Collect() was called.");
+        Console.WriteLine($"Total size after GC: {container.GetTotalSize()} bytes");
     }
     
 }
