@@ -2,8 +2,8 @@
 
 public abstract class Resource
 {
-    public string Name;
-    public bool IsOpen;
+    public string Name { get; set; }
+    public bool IsOpen { get; protected set; }
 
     protected Resource(string name)
     {
